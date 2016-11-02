@@ -7,8 +7,7 @@
 //
 
 import UIKit
-import Fabric
-import TwitterKit
+import BDBOAuth1Manager
 
 
 @UIApplicationMain
@@ -20,8 +19,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         
-        Fabric.with([Twitter.self])
+        if User.currentUser != nil {
+            print("Current User Exists")
+            
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let vc = storyboard.instantiateViewController(withIdentifier: "TweetsNavigationController")
+            window?.rootViewController = vc
+        }
+       
+        NotificationCenter.default.addObserver(forName: User.logoutNotification, object: nil, queue: OperationQueue.main, using: { (Notification) in
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let vc = storyboard.instantiateInitialViewController()
+            self.window?.rootViewController = vc
 
+        })
+        
         return true
     }
 
@@ -48,7 +60,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
-        print(url)
+        print(url.description)
+        
+        TwitterClient.sharedInstance?.handleOpenUrl(url: url) 
         
         return true
     }

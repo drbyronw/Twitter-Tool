@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11201" systemVersion="16A323" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11542" systemVersion="16B2555" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+    <device id="retina4_0" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11524"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -16,10 +19,11 @@
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jUB-Po-kqF">
+                                <rect key="frame" x="44" y="419" width="232" height="58"/>
                                 <color key="backgroundColor" red="0.0" green="0.67450980392156867" blue="0.92941176470588238" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="232" id="hZF-X7-Phf"/>
@@ -37,15 +41,74 @@
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstAttribute="trailingMargin" secondItem="jUB-Po-kqF" secondAttribute="trailing" constant="56" id="NcA-kg-WKt"/>
-                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="jUB-Po-kqF" secondAttribute="bottom" constant="94" id="Su2-YE-SHM"/>
-                            <constraint firstItem="jUB-Po-kqF" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="55" id="vVF-AA-MGN"/>
+                            <constraint firstAttribute="trailingMargin" relation="greaterThanOrEqual" secondItem="jUB-Po-kqF" secondAttribute="trailing" constant="28" id="NcA-kg-WKt"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="jUB-Po-kqF" secondAttribute="bottom" constant="91" id="Su2-YE-SHM"/>
+                            <constraint firstItem="jUB-Po-kqF" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="nTE-SZ-pKu"/>
+                            <constraint firstItem="jUB-Po-kqF" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="28" id="vVF-AA-MGN"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <segue destination="19V-xK-PAW" kind="presentation" identifier="loginSegue" id="4aB-2f-0cY"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="136.80000000000001" y="138.98050974512745"/>
+        </scene>
+        <!--Tweets View Controller-->
+        <scene sceneID="O5d-s5-4gV">
+            <objects>
+                <viewController id="0Qc-X8-TGV" customClass="TweetsViewController" customModule="Twitter_Tool" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="mVS-Oc-Jcb"/>
+                        <viewControllerLayoutGuide type="bottom" id="X6q-vO-TgH"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="1NK-ne-DAM">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="8Ae-P0-6lL">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="8Ae-P0-6lL" firstAttribute="top" secondItem="1NK-ne-DAM" secondAttribute="top" id="9FB-r6-rBf"/>
+                            <constraint firstAttribute="trailing" secondItem="8Ae-P0-6lL" secondAttribute="trailing" id="BOi-jk-1yG"/>
+                            <constraint firstItem="8Ae-P0-6lL" firstAttribute="leading" secondItem="1NK-ne-DAM" secondAttribute="leading" id="Rui-fg-00Z"/>
+                            <constraint firstItem="X6q-vO-TgH" firstAttribute="top" secondItem="8Ae-P0-6lL" secondAttribute="bottom" id="ZJ7-8g-0if"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="4Nx-G8-xgL">
+                        <barButtonItem key="leftBarButtonItem" title="Logout" id="zl3-ZR-ldy">
+                            <connections>
+                                <action selector="onLogoutButton:" destination="0Qc-X8-TGV" id="ic9-W8-urN"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="N69-WN-aRq" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1980" y="136.26760563380282"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="PF8-md-qxc">
+            <objects>
+                <navigationController storyboardIdentifier="TweetsNavigationController" automaticallyAdjustsScrollViewInsets="NO" id="19V-xK-PAW" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="Klc-Nq-lUY">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="0Qc-X8-TGV" kind="relationship" relationship="rootViewController" id="QVQ-xi-sFY"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ehb-7l-wNJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1192.5" y="137.32394366197184"/>
         </scene>
     </scenes>
 </document>

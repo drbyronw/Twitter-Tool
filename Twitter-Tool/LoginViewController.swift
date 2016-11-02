@@ -7,33 +7,14 @@
 //
 
 import UIKit
-import TwitterKit
+import BDBOAuth1Manager
 
 class LoginViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let logInButton = TWTRLogInButton { (session, error) in
-            if let unwrappedSession = session {
-                let alert = UIAlertController(title: "Logged In",
-                                              message: "User \(unwrappedSession.userName) has logged in",
-                    preferredStyle: UIAlertControllerStyle.alert
-                )
-                alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil))
-                self.present(alert, animated: true, completion: nil)
-            } else {
-                NSLog("Login error: %@", error!.localizedDescription);
-            }
-        }
-        
-        // TODO: Change where the log in button is positioned in your view
-        logInButton.center = self.view.center
-        self.view.addSubview(logInButton)
-
-        logInButton.addTarget(self, action: #selector(onTwitterButton(_:)), for: .allTouchEvents)
-
-                // Do any additional setup after loading the view.
+                       // Do any additional setup after loading the view.
     }
 
     override func didReceiveMemoryWarning() {
@@ -47,29 +28,14 @@ class LoginViewController: UIViewController {
     }
     
     @IBAction func onLoginButton(_ sender: AnyObject) {
-        let client = TWTRAPIClient()
-        let statusesShowEndpoint = "https://api.twitter.com/1.1/statuses/show.json"
-        let params = ["id": "20"]
-        var clientError : NSError?
+        let twitterClient =  TwitterClient.sharedInstance
         
-        let request = client.urlRequest(withMethod: "GET", url: statusesShowEndpoint, parameters: params, error: &clientError)
-        
-        client.sendTwitterRequest(request) { (response, data, connectionError) -> Void in
-            if connectionError != nil {
-                print("Error: \(connectionError)")
-            }
+        twitterClient?.login(success: {
+            self.performSegue(withIdentifier: "loginSegue", sender: nil)
             
-            if let data = data {
-                do {
-                    
-                    let json = try JSONSerialization.jsonObject(with: data, options: [])
-                    print("______json: \(json)")
-                } catch let jsonError as NSError {
-                    print("______json error: \(jsonError.localizedDescription)")
-                }
-            }
-        }
-
+        }, failure: { (error: Error) in
+            print("Error trying to Login (onLoginButton) from ViewController: \(error.localizedDescription)")
+        })
         
     }
 
