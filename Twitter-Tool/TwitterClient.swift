@@ -16,6 +16,61 @@ class TwitterClient: BDBOAuth1SessionManager {
     var loginSuccess: (() -> ())?
     var loginFailure: ((Error) -> ())?
     
+    func favoriteOn(tweet: Tweet, success: @escaping (Tweet) -> (), failure: @escaping (Error) -> ()) {
+        var tweetParameters = [String : AnyObject]()
+        
+        tweetParameters["id"] = tweet.tweetID as AnyObject?
+        
+        post("1.1/favorites/create.json", parameters: tweetParameters, progress: nil, success: { (task: URLSessionDataTask, response: Any?) in
+            
+            let dictionary = response as! [String: AnyObject]
+            let tweet = Tweet(dictionary: dictionary)
+            
+            success(tweet)
+        }, failure: { (task: URLSessionDataTask?, error: Error) in
+            print("favorite On error: \(error.localizedDescription)")
+            failure(error)
+        })
+        
+    }
+    
+    func favoriteOff(tweet: Tweet, success: @escaping (Tweet) -> (), failure: @escaping (Error) -> ()) {
+        var tweetParameters = [String : AnyObject]()
+        
+        tweetParameters["id"] = tweet.tweetID as AnyObject?
+        
+        post("1.1/favorites/create.json", parameters: tweetParameters, progress: nil, success: { (task: URLSessionDataTask, response: Any?) in
+            
+            let dictionary = response as! [String: AnyObject]
+            let tweet = Tweet(dictionary: dictionary)
+            
+            success(tweet)
+        }, failure: { (task: URLSessionDataTask?, error: Error) in
+            print("favorit Off error: \(error.localizedDescription)")
+            failure(error)
+        })
+        
+    }
+
+    func composeTweet(tweet: String, success: @escaping (Tweet) -> (), failure: @escaping (Error) -> ()) {
+        var tweetParameters = [String : AnyObject]()
+        print("Tweet Text: \(tweet)")
+        
+        tweetParameters["status"] = tweet as AnyObject?
+        
+        post("1.1/statuses/update.json", parameters: tweetParameters, progress: nil, success: { (task: URLSessionDataTask, response: Any?) in
+            
+            let dictionary = response as! [String: AnyObject]
+            let tweet = Tweet(dictionary: dictionary)
+            
+            success(tweet)
+        }, failure: { (task: URLSessionDataTask?, error: Error) in
+            print("compose tweet error: \(error.localizedDescription)")
+            failure(error)
+        })
+        
+    }
+
     func retweet(with id: Int, success: @escaping (Tweet) -> (), failure: @escaping (Error) -> ()) {
         post("1.1/statuses/retweet/\(id).json", parameters: nil, progress: nil, success: { (task: URLSessionDataTask, response: Any?) in
             

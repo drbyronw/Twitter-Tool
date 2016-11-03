@@ -18,6 +18,7 @@ class TweetDetailViewController: UIViewController {
     @IBOutlet weak var timeStampLabel: UILabel!
     
     var tweet: Tweet!
+    var isAlreadyFavorited = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -41,7 +42,8 @@ class TweetDetailViewController: UIViewController {
    
     @IBAction func retweet(_ sender: Any) {
         TwitterClient.sharedInstance?.retweet(with: tweet.tweetID, success: {(tweet: Tweet) in
-            print("retweeted: \(self.tweet.text)")
+            print(tweet.tweetID)
+            print("retweeted: \(self.tweet.text!)")
         }, failure: {
             (error: Error) in
             print("Error with Retweet: \(error.localizedDescription)")
@@ -50,6 +52,24 @@ class TweetDetailViewController: UIViewController {
     
     
     @IBAction func favorite(_ sender: Any) {
+        if isAlreadyFavorited {
+            TwitterClient.sharedInstance?.favoriteOff(tweet: tweet, success: {(tweet: Tweet) in
+                print("Tweet Favorited (on/off) \(tweet.tweetID)")
+                
+            }, failure: {
+                (error: Error) in
+                print("Error with Favorite (on/off): \(error.localizedDescription)")
+            })
+        } else {
+            TwitterClient.sharedInstance?.favoriteOn(tweet: tweet, success: {(tweet: Tweet) in
+                print("Tweet Favorited (on/off) \(tweet.tweetID)")
+                
+            }, failure: {
+                (error: Error) in
+                print("Error with Favorite (on/off): \(error.localizedDescription)")
+            })
+            isAlreadyFavorited = true
+        }
     }
     /*
     // MARK: - Navigation

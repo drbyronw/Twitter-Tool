@@ -246,10 +246,14 @@
                     <navigationItem key="navigationItem" id="Abx-9j-k4w">
                         <barButtonItem key="leftBarButtonItem" title="Cancel" id="445-PR-bOh">
                             <connections>
-                                <action selector="cancel:" destination="lj0-u1-J2I" id="Lxq-x1-akM"/>
+                                <action selector="onCancelButton:" destination="lj0-u1-J2I" id="nbH-gV-7sN"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" title="Tweet" id="crm-rC-8WD"/>
+                        <barButtonItem key="rightBarButtonItem" title="Tweet" id="crm-rC-8WD">
+                            <connections>
+                                <action selector="onTweetButton:" destination="lj0-u1-J2I" id="Vbp-aY-WZr"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="nameLabel" destination="AOg-OD-M1T" id="xEp-x5-CU0"/>

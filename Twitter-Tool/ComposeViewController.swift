@@ -19,6 +19,7 @@ class ComposeViewController: UIViewController {
     var profileURL: URL!
     var name: String!
     var screenName: String!
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,8 +36,18 @@ class ComposeViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    @IBAction func onTweetButton(_ sender: Any) {
+        let composedTweet = tweetTextView.text
+        TwitterClient.sharedInstance?.composeTweet(tweet: composedTweet!, success: { (tweet: Tweet) in
+            print("composed Tweet: \(tweet.text)")
+        }, failure: { (error: Error) in
+            print("Error Composing Tweet: \(error.localizedDescription)")
+        })
+        
+        self.dismiss(animated: true, completion: nil)
+    }
   
-    @IBAction func cancel(_ sender: Any) {
+    @IBAction func onCancelButton(_ sender: Any) {
         resignFirstResponder()
         dismiss(animated: true, completion: nil)
     }
