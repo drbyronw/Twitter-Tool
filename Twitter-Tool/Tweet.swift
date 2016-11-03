@@ -12,12 +12,13 @@ class Tweet {
     var text: String?
     var retweetCount: Int = 0
     var favoritesCount: Int = 0
-    var timeStamp: Date?
+    var timeStamp: NSDate?
     var user: User?
+    var tweetID: Int = 0
     
     init(dictionary: [String: AnyObject]) {
         text = dictionary["text"] as? String
-        
+        tweetID = (dictionary["id"] as? Int) ?? 0
         retweetCount = (dictionary["retweet_count"] as? Int) ?? 0
         favoritesCount = (dictionary["favourites_count"] as? Int) ?? 0
 
@@ -26,7 +27,7 @@ class Tweet {
         if let timeStampString = timeStampString {
             let formatter = DateFormatter()
             formatter.dateFormat = "EEE MMM d HH:mm:ss Z y"
-            timeStamp = formatter.date(from: timeStampString)
+            timeStamp = formatter.date(from: timeStampString) as NSDate?
         }
         
         if let userDictionary = dictionary["user"] as? [String: AnyObject] {

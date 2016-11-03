@@ -8,6 +8,7 @@
 
 import UIKit
 import AFNetworking
+import NSDateMinimalTimeAgo
 
 class TweetCell: UITableViewCell {
 
@@ -25,6 +26,7 @@ class TweetCell: UITableViewCell {
             nameLabel.text = tweet.user?.name
             screenNameLabel.text = tweet.user?.screenName
             profileImageView.setImageWith((tweet.user?.profileUrl)!)
+            timeLabel.text = tweet.timeStamp?.timeAgo()
         }
     }
     

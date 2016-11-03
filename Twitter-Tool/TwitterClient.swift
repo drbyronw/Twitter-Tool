@@ -16,6 +16,19 @@ class TwitterClient: BDBOAuth1SessionManager {
     var loginSuccess: (() -> ())?
     var loginFailure: ((Error) -> ())?
     
+    func retweet(with id: Int, success: @escaping (Tweet) -> (), failure: @escaping (Error) -> ()) {
+        post("1.1/statuses/retweet/\(id).json", parameters: nil, progress: nil, success: { (task: URLSessionDataTask, response: Any?) in
+            
+            let dictionary = response as! [String: AnyObject]
+            let tweet = Tweet(dictionary: dictionary)
+            
+            success(tweet)
+        }, failure: { (task: URLSessionDataTask?, error: Error) in
+            print("retweet error: \(error.localizedDescription)")
+            failure(error)
+        })
+
+    }
     
     func handleOpenUrl(url: URL) {
         let requestToken = BDBOAuth1Credential(queryString: url.query)
