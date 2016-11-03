@@ -8,17 +8,21 @@
 
 import UIKit
 
-class TweetsViewController: UIViewController {
+class TweetsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
-    var tweets: [Tweet]?
+    var tweets: [Tweet]!
+    
+    @IBOutlet weak var tableView: UITableView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        tableView.delegate = self
+        tableView.dataSource = self 
 
         TwitterClient.sharedInstance?.homeTimeLine(success: { (tweets: [Tweet]) in
             self.tweets = tweets
-            
-//            for tweet in tweets {
+            self.tableView.reloadData()
+//            for tweet in self.tweets {
 //                print(tweet.text ?? "No Tweet")
 //                print(tweet.timeStamp ?? "No TimeStamp")
 //                print(tweet.favoritesCount, tweet.retweetCount)
@@ -26,6 +30,8 @@ class TweetsViewController: UIViewController {
         }, failure: { (error: Error) in
             print("HomeTimeLineError: \(error.localizedDescription)")
         })
+        
+        
         // Do any additional setup after loading the view.
     }
 
@@ -37,6 +43,23 @@ class TweetsViewController: UIViewController {
     @IBAction func onLogoutButton(_ sender: Any) {
         TwitterClient.sharedInstance?.logout()
         
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if let tweets = tweets {
+            print("# Tweets: \(tweets.count)")
+            return tweets.count
+        } else {
+            return 0
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "TweetCell", for: indexPath) as! TweetCell
+        
+        cell.tweet = tweets?[indexPath.row]
+        
+        return cell
     }
 
     /*

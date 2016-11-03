@@ -16,6 +16,7 @@
 		9136F5581DC82802006F9B43 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9136F5571DC82802006F9B43 /* User.swift */; };
 		9136F55A1DC82B97006F9B43 /* Tweet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9136F5591DC82B97006F9B43 /* Tweet.swift */; };
 		9136F55D1DC8321A006F9B43 /* TwitterClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9136F55C1DC8321A006F9B43 /* TwitterClient.swift */; };
+		918A41411DCA96DB00A59B38 /* TweetCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 918A41401DCA96DB00A59B38 /* TweetCell.swift */; };
 		91D583741DC06EF200171C0E /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91D583731DC06EF200171C0E /* LoginViewController.swift */; };
 /* End PBXBuildFile section */
 
@@ -33,6 +34,7 @@
 		9136F5591DC82B97006F9B43 /* Tweet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Tweet.swift; sourceTree = "<group>"; };
 		9136F55C1DC8321A006F9B43 /* TwitterClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TwitterClient.swift; sourceTree = "<group>"; };
 		9136F55E1DC86980006F9B43 /* Twitter-Tool.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Twitter-Tool.entitlements"; sourceTree = "<group>"; };
+		918A41401DCA96DB00A59B38 /* TweetCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TweetCell.swift; sourceTree = "<group>"; };
 		91D583731DC06EF200171C0E /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		D0F621A9C05097AA84EC08A7 /* Pods_Twitter_Tool.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Twitter_Tool.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -79,6 +81,7 @@
 		911864F81DC06A3500F8942B /* Twitter-Tool */ = {
 			isa = PBXGroup;
 			children = (
+				918A413F1DCA96CA00A59B38 /* Views */,
 				9136F55E1DC86980006F9B43 /* Twitter-Tool.entitlements */,
 				9136F55B1DC831F8006F9B43 /* API */,
 				9136F5561DC827B5006F9B43 /* Models */,
@@ -107,6 +110,14 @@
 				9136F55C1DC8321A006F9B43 /* TwitterClient.swift */,
 			);
 			name = API;
+			sourceTree = "<group>";
+		};
+		918A413F1DCA96CA00A59B38 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				918A41401DCA96DB00A59B38 /* TweetCell.swift */,
+			);
+			name = Views;
 			sourceTree = "<group>";
 		};
 		91D583721DC06ECE00171C0E /* View Controllers */ = {
@@ -270,6 +281,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9136F5581DC82802006F9B43 /* User.swift in Sources */,
+				918A41411DCA96DB00A59B38 /* TweetCell.swift in Sources */,
 				9136F55A1DC82B97006F9B43 /* Tweet.swift in Sources */,
 				912499051DCA076100112028 /* TweetsViewController.swift in Sources */,
 				91D583741DC06EF200171C0E /* LoginViewController.swift in Sources */,
