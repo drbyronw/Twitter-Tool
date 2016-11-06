@@ -12,7 +12,7 @@ class MenuViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     @IBOutlet weak var tableView: UITableView!
     
-    let menuTitles = ["Your Profile", "Timeline", "Mentions"]
+    let menuTitles = ["User Profile", "Timeline", "Mentions"]
     private var tweetsViewController: UIViewController!
     private var profileViewController: UIViewController!
     private var mentionsViewController: UIViewController!
@@ -29,13 +29,15 @@ class MenuViewController: UIViewController, UITableViewDelegate, UITableViewData
         
         let storyboard = UIStoryboard.init(name: "Main", bundle: nil)
         
-        tweetsViewController = storyboard.instantiateViewController(withIdentifier: "TweetsVC")
-        profileViewController = storyboard.instantiateViewController(withIdentifier: "ProfileVC")
-        mentionsViewController = storyboard.instantiateViewController(withIdentifier: "MentionsVC")
+        tweetsViewController = storyboard.instantiateViewController(withIdentifier: "TweetsNavigationController")
+        profileViewController = storyboard.instantiateViewController(withIdentifier: "ProfileNavigationController")
+        mentionsViewController = storyboard.instantiateViewController(withIdentifier: "MentionsNavigationController")
         
-        viewControllers.append(tweetsViewController)
         viewControllers.append(profileViewController)
+        viewControllers.append(tweetsViewController)
         viewControllers.append(mentionsViewController)
+        
+        hamburgerViewController.contentViewController = tweetsViewController
         
         tableView.reloadData()
     }
@@ -43,6 +45,12 @@ class MenuViewController: UIViewController, UITableViewDelegate, UITableViewData
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        
+        hamburgerViewController.contentViewController = viewControllers[indexPath.row]
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

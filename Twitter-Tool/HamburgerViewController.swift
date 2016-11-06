@@ -11,7 +11,7 @@ import UIKit
 class HamburgerViewController: UIViewController {
 
     @IBOutlet weak var menuView: UIView!
-    @IBOutlet weak var contentsView: UIView!
+    @IBOutlet weak var contentView: UIView!
     
     var originalLeftMargin: CGFloat!
     @IBOutlet weak var leftMarginConstraint: NSLayoutConstraint!
