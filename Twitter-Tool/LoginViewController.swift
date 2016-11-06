@@ -22,17 +22,15 @@ class LoginViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    func onTwitterButton(_ sender: UIButton) {
-        
-        
-    }
+
     
     @IBAction func onLoginButton(_ sender: AnyObject) {
         let twitterClient =  TwitterClient.sharedInstance
         
         twitterClient?.login(success: {
-            self.performSegue(withIdentifier: "loginSegue", sender: nil)
-            
+//            self.performSegue(withIdentifier: "loginSegue", sender: nil)
+            self.performSegue(withIdentifier: "hamburgerSegue", sender: nil)
+
         }, failure: { (error: Error) in
             print("Error trying to Login (onLoginButton) from ViewController: \(error.localizedDescription)")
         })

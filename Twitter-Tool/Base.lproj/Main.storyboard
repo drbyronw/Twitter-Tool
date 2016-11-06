@@ -49,6 +49,7 @@
                     </view>
                     <connections>
                         <segue destination="19V-xK-PAW" kind="presentation" identifier="loginSegue" id="4aB-2f-0cY"/>
+                        <segue destination="oJP-d6-5NE" kind="show" identifier="hamburgerSegue" id="GCO-Q2-SyB"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -58,7 +59,7 @@
         <!--Home-->
         <scene sceneID="O5d-s5-4gV">
             <objects>
-                <viewController id="0Qc-X8-TGV" customClass="TweetsViewController" customModule="Twitter_Tool" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="TweetsVC" id="0Qc-X8-TGV" customClass="TweetsViewController" customModule="Twitter_Tool" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="mVS-Oc-Jcb"/>
                         <viewControllerLayoutGuide type="bottom" id="X6q-vO-TgH"/>
@@ -433,6 +434,10 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7jV-TJ-9JQ" userLabel="Contents View">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <gestureRecognizers/>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="us8-sm-u0p" appends="YES" id="KZz-kp-5iK"/>
+                                </connections>
                             </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -447,8 +452,18 @@
                             <constraint firstItem="7jV-TJ-9JQ" firstAttribute="width" secondItem="OGg-lT-gad" secondAttribute="width" id="yFP-oO-Ci6"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="contentsView" destination="7jV-TJ-9JQ" id="tCS-JY-Yqd"/>
+                        <outlet property="leftMarginConstraint" destination="HJF-11-B6R" id="0FB-Y0-jYj"/>
+                        <outlet property="menuView" destination="a4c-I4-9JU" id="fHn-nj-ahH"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="psx-BB-8a7" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <panGestureRecognizer minimumNumberOfTouches="1" id="us8-sm-u0p">
+                    <connections>
+                        <action selector="onPanGesture:" destination="oJP-d6-5NE" id="uJL-yh-ZBg"/>
+                    </connections>
+                </panGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="90" y="-563.02816901408448"/>
         </scene>

@@ -13,12 +13,31 @@ class MenuViewController: UIViewController, UITableViewDelegate, UITableViewData
     @IBOutlet weak var tableView: UITableView!
     
     let menuTitles = ["Your Profile", "Timeline", "Mentions"]
-
+    private var tweetsViewController: UIViewController!
+    private var profileViewController: UIViewController!
+    private var mentionsViewController: UIViewController!
+    
+    var hamburgerViewController: HamburgerViewController!
+    
+    var viewControllers: [UIViewController] = []
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         tableView.dataSource = self
         tableView.delegate = self
+        
+        let storyboard = UIStoryboard.init(name: "Main", bundle: nil)
+        
+        tweetsViewController = storyboard.instantiateViewController(withIdentifier: "TweetsVC")
+        profileViewController = storyboard.instantiateViewController(withIdentifier: "ProfileVC")
+        mentionsViewController = storyboard.instantiateViewController(withIdentifier: "MentionsVC")
+        
+        viewControllers.append(tweetsViewController)
+        viewControllers.append(profileViewController)
+        viewControllers.append(mentionsViewController)
+        
+        tableView.reloadData()
     }
 
     override func didReceiveMemoryWarning() {
