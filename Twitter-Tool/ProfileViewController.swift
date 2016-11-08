@@ -23,6 +23,7 @@ class ProfileViewController: UIViewController, UITableViewDataSource, UITableVie
     @IBOutlet weak var followersLabel: UILabel!
     @IBOutlet weak var screenNameLabel: UILabel!
     @IBOutlet weak var dismissButton: UIBarButtonItem!
+    @IBOutlet weak var tweetsCountLabel: UILabel!
     
     let refreshControl = UIRefreshControl()
     var dismissEnabled: Bool!
@@ -44,9 +45,21 @@ class ProfileViewController: UIViewController, UITableViewDataSource, UITableVie
         self.refreshControl.addTarget(self, action: #selector(TweetsViewController.refreshControlAction(_:)), for: UIControlEvents.valueChanged)
         
         tableView.insertSubview(refreshControl, at: 1)
-        
 
-        TwitterClient.sharedInstance?.homeTimeLine(success: { (tweets: [Tweet]) in
+        if user != nil {
+            getUser()
+            setupProfile()
+            
+        } else {
+            user = User.currentUser
+            getTimeLine()
+            setupProfile()
+        }
+        tableView.reloadData()
+    }
+    
+    func getUser() {
+        TwitterClient.sharedInstance?.userTimeLine(user.userID, success: { (tweets: [Tweet]) in
             self.tweets = tweets
             self.tableView.reloadData()
             
@@ -54,14 +67,16 @@ class ProfileViewController: UIViewController, UITableViewDataSource, UITableVie
             print("HomeTimeLineError: \(error.localizedDescription)")
         })
 
-        if user != nil {
-            setupProfile()
+    }
+    
+    func getTimeLine() {
+        TwitterClient.sharedInstance?.homeTimeLine(success: { (tweets: [Tweet]) in
+            self.tweets = tweets
+            self.tableView.reloadData()
             
-        } else {
-            user = User.currentUser
-            setupProfile()
-        }
-        tableView.reloadData()
+        }, failure: { (error: Error) in
+            print("HomeTimeLineError: \(error.localizedDescription)")
+        })
     }
 
     override func didReceiveMemoryWarning() {
@@ -75,7 +90,8 @@ class ProfileViewController: UIViewController, UITableViewDataSource, UITableVie
         locationLabel.text = user.location
         followersLabel.text = "\(user.followersCount)"
         followingLabel.text = "\(user.followingCount)"
-        
+        tweetsCountLabel.text = "\(user.tweetsCount)"
+         
         headerImageView.setImageWith(user.headerUrl!)
         profileImageView.setImageWith(user.profileUrl!)
     }

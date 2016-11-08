@@ -17,7 +17,9 @@ class User {
     var tagline: String?
     var followersCount: Int = 0
     var followingCount: Int = 0
+    var tweetsCount: Int = 0
     var location: String?
+    var userID: Int = 0
     
     var dictionary: [String: AnyObject]?
     
@@ -65,7 +67,8 @@ class User {
         
         followersCount = (dictionary["followers_count"] as? Int) ?? 0
         followingCount = (dictionary["friends_count"] as? Int) ?? 0
-
+        tweetsCount = (dictionary["statuses_count"] as? Int) ?? 0
+        userID = (dictionary["id"] as? Int) ?? 0
         
         let profileUrlString = dictionary["profile_image_url"] as? String
         if let profileUrlString = profileUrlString {
