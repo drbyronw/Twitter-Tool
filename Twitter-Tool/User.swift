@@ -13,7 +13,11 @@ class User {
     var name: String?
     var screenName: String?
     var profileUrl: URL?
+    var headerUrl: URL?
     var tagline: String?
+    var followersCount: Int = 0
+    var followingCount: Int = 0
+    var location: String?
     
     var dictionary: [String: AnyObject]?
     
@@ -57,10 +61,20 @@ class User {
         name = dictionary["name"] as? String
         screenName = dictionary["screen_name"] as? String
         tagline = dictionary["description"] as? String
+        location = dictionary["location"] as? String
         
-        let profileUrlString = dictionary["profile_image_url_https"] as? String
+        followersCount = (dictionary["followers_count"] as? Int) ?? 0
+        followingCount = (dictionary["friends_count"] as? Int) ?? 0
+
+        
+        let profileUrlString = dictionary["profile_image_url"] as? String
         if let profileUrlString = profileUrlString {
             profileUrl = URL(string: profileUrlString)
+        }
+        
+        let profileHeaderString = dictionary["profile_background_image_url"] as? String
+        if let profileHeaderString = profileHeaderString {
+            headerUrl = URL(string: profileHeaderString)
         }
     }
     

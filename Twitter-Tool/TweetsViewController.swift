@@ -8,7 +8,7 @@
 
 import UIKit
 
-class TweetsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class TweetsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, TweetCellDelegate {
 
     var tweets: [Tweet]!
     
@@ -33,8 +33,6 @@ class TweetsViewController: UIViewController, UITableViewDelegate, UITableViewDa
             print("HomeTimeLineError: \(error.localizedDescription)")
         })
 
-        
-        // Do any additional setup after loading the view.
     }
 
     override func didReceiveMemoryWarning() {
@@ -74,10 +72,14 @@ class TweetsViewController: UIViewController, UITableViewDelegate, UITableViewDa
         let cell = tableView.dequeueReusableCell(withIdentifier: "TweetCell", for: indexPath) as! TweetCell
         
         cell.tweet = tweets?[indexPath.row]
-        
+        cell.delegate = self
+        cell.selectionStyle = .none
         return cell
     }
 
+    func viewProfile(_ sender: TweetCell) {
+        performSegue(withIdentifier: "ProfileViewSegue", sender: sender)
+    }
     
     // MARK: - Navigation
 
@@ -97,6 +99,13 @@ class TweetsViewController: UIViewController, UITableViewDelegate, UITableViewDa
             composeViewController.screenName = User.currentUser?.screenName
             composeViewController.profileURL = User.currentUser?.profileUrl
             
+        } else if segue.identifier == "ProfileViewSegue" {
+            let navigationController = segue.destination as! UINavigationController
+            let profileViewController = navigationController.topViewController as! ProfileViewController
+            let cell = sender as! TweetCell
+            profileViewController.dismissEnabled = true
+            profileViewController.user = cell.tweet.user
+            print("Profile Segue")
         }
 
     }

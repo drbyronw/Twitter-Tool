@@ -10,6 +10,10 @@ import UIKit
 import AFNetworking
 import NSDateMinimalTimeAgo
 
+protocol TweetCellDelegate {
+    func viewProfile(_ sender: TweetCell)
+}
+
 class TweetCell: UITableViewCell {
 
     @IBOutlet weak var retweetedLabel: UILabel!
@@ -20,6 +24,10 @@ class TweetCell: UITableViewCell {
     @IBOutlet weak var tweetTextLabel: UILabel!
     @IBOutlet weak var timeLabel: UILabel!
     
+    var delegate: TweetCellDelegate?
+    
+    var tap = UITapGestureRecognizer()
+  
     var tweet: Tweet! {
         didSet {
             tweetTextLabel.text = tweet.text
@@ -30,10 +38,20 @@ class TweetCell: UITableViewCell {
         }
     }
     
+    func profileImageTapped() {
+        delegate?.viewProfile(self)
+    }
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         retweetedLabel.isEnabled = false
-        retweetedLabel.isEnabled = false
+        retweetedImageView.isHidden = true
+        
+        let tap = UITapGestureRecognizer(target: self, action: #selector(TweetCell.profileImageTapped))
+        tap.numberOfTapsRequired = 1
+//        tap.addTarget(self, action: #selector(TweetCell.profileImageTapped))
+        profileImageView.isUserInteractionEnabled = true
+        profileImageView.addGestureRecognizer(tap)
         // Initialization code
     }
 
